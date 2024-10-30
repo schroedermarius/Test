@@ -16,6 +16,7 @@ jobs:
 
     env:
       ENV_SECRET: ${{ secrets.ENV_SECRET }}
+      ENV_VAR: ${{ vars.ENV_VAR }}
 
     steps:
       - name: Checkout code
@@ -27,6 +28,10 @@ jobs:
       - name: Consume secret
         run: |
           echo "Consuming secret: $ENV_SECRET"
+          
+      - name: Consume var
+        run: |
+          echo "Consuming secret: $ENV_VAR"
 
       - name: Output environment
         run: |
@@ -35,3 +40,7 @@ jobs:
       - name: Echo environment variable
         run: | 
           echo "Environment variable: $ENV_SECRET"
+          
+      - name: Echo environment variable
+        run: | 
+          echo "Environment variable: $ENV_VAR"
