@@ -25,10 +25,13 @@ jobs:
         run: echo "Setting up environment"
 
       - name: Consume secret
-        run: echo "Consuming secret: $ENV_SECRET"
+        run: |
+          echo "Consuming secret: $ENV_SECRET"
 
       - name: Output environment
-        run: echo "## Chosen Environment: ${{ github.event.inputs.environment }}" > output.md
+        run: |
+          echo "## Chosen Environment: ${{ github.event.inputs.environment }}" > output.md
 
       - name: Echo environment variable
-        run: echo "Environment variable: $ENV_SECRET"
+        run: | 
+          echo "Environment variable: $ENV_SECRET"
