@@ -1,20 +1,14 @@
-# Test
-
-## Environment Pipeline
-
-This repository contains a pipeline that consumes secrets from different environments and outputs the chosen environment via markdown.
-
-### Pipeline Configuration
-
-The pipeline is defined in the `.github/workflows/environment-pipeline.yml` file. Below is an example of the pipeline configuration:
-
-```yaml
 name: Environment Pipeline
 
 on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
+      - develop
+      - test
 
 jobs:
   environment-pipeline:
@@ -35,4 +29,6 @@ jobs:
 
       - name: Output environment
         run: echo "## Chosen Environment: ${{ github.event.inputs.environment }}" > output.md
-```
+
+      - name: Echo environment variable
+        run: echo "Environment variable: $ENV_SECRET"

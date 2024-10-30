@@ -1,0 +1,17 @@
+name: 'Environment Action'
+description: 'An action to set up the environment and consume secrets'
+inputs:
+  environment:
+    description: 'The chosen environment'
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up environment
+      run: echo "Setting up environment"
+
+    - name: Consume secret
+      run: echo "Consuming secret: ${{ secrets.ENV_SECRET }}"
+
+    - name: Output environment
+      run: echo "## Chosen Environment: ${{ inputs.environment }}" > output.md
