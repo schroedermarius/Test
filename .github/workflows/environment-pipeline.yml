@@ -1,0 +1,46 @@
+name: Environment Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - test
+
+jobs:
+  environment-pipeline:
+    # Set the environment variable based on the branch
+    environment: ${{ github.ref == 'refs/heads/main' && 'prod' || github.ref == 'refs/heads/develop' && 'dev' || github.ref == 'refs/heads/test' && 'test' || 'dev' }}
+
+    runs-on: ubuntu-latest
+
+    env:
+      ENV_SECRET: ${{ secrets.ENV_SECRET }}
+      ENV_VAR: ${{ vars.ENV_VAR }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up environment
+        run: echo "Setting up environment"
+
+      - name: Consume secret
+        run: |
+          echo "Consuming secret: $ENV_SECRET"
+          
+      - name: Consume var
+        run: |
+          echo "Consuming secret: $ENV_VAR"
+
+      - name: Output environment
+        run: |
+          echo "## Chosen Environment: ${{ github.event.inputs.environment }}" > output.md
+
+      - name: Echo environment variable
+        run: | 
+          echo "Environment variable: $ENV_SECRET"
+          
+      - name: Echo environment variable
+        run: | 
+          echo "Environment variable: $ENV_VAR"
