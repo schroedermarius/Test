@@ -12,6 +12,9 @@ on:
 
 jobs:
   environment-pipeline:
+    # Set the environment variable based on the branch
+    environment: ${{ github.ref == 'refs/heads/main' && 'prod' || github.ref == 'refs/heads/develop' && 'dev' || github.ref == 'refs/heads/test' && 'test' || 'dev' }}
+
     runs-on: ubuntu-latest
 
     env:
